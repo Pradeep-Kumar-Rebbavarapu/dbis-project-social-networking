@@ -1,0 +1,5 @@
+frontend
+server
+venv 
+migrations
+__pycache__

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Our Service</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #f7f7f7; /* Greyish background color */
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #f7f7f7; /* Greyish background color */
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            width: 150px; /* Increase the logo size */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .content {
+            background-color: #fff; /* White background */
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #fff; /* White button background */
+            color: #000; /* Black button text */
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #f7f7f7; /* Greyish background color on hover */
+        }
+
+        .footer {
+            background-color: #f7f7f7; /* Greyish background color */
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img class="logo" src="https://res.cloudinary.com/dqo9rn5lp/image/upload/v1698958132/dbis_logo_ln1njj.png" alt="Your Logo">
+        </div>
+        <div class="content">
+            <h1>Welcome to Our Service</h1>
+            <p>Dear User,</p>
+            <p>Thank you for joining our service. We're thrilled to have you on board!</p>
+            <p>To complete your registration and start exploring our platform, please click the button below:</p>
+            <a class="button" href="http://localhost:3000/activate/{{ key }}">Get Started</a>
+            <p>If you have any questions or need assistance, please don't hesitate to contact us.</p>
+            <p>Best regards,</p>
+            <p>Nexus Net Team</p>
+        </div>
+        <div class="footer">
+            &copy; 2023 Nexus Net. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
