@@ -34,7 +34,6 @@ SITE_ID = 1
 # Application definition
 REST_USE_JWT = True
 INSTALLED_APPS = [
-    "daphne",
     "api.apps.ApiConfig",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -95,25 +94,18 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'server2.wsgi.application'
 
+WSGI_APPLICATION = 'server2.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
-
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'nexus net',
-        'USER': 'postgres',
-        'PASSWORD': 1234,
-        'HOST': 'localhost',
-        'PORT': '5433',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -166,14 +158,7 @@ MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
-        },
-    },
-}
+
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=5),
@@ -246,7 +231,5 @@ REST_AUTH = {
 
 JWT_AUTH_COOKIE = 'auth'
 
-
-ASGI_APPLICATION = "server2.asgi.application"
 
 
