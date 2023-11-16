@@ -8,11 +8,3 @@ from channels.security.websocket import AllowedHostsOriginValidator
 import api.routing
 
 
-application = ProtocolTypeRouter(
-    {
-        "http":django_asgi_app,
-        "websocket": 
-            AuthMiddlewareStack(URLRouter(api.routing.websocket_urlpatterns))
-        
-    }
-)

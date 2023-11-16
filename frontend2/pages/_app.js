@@ -22,7 +22,7 @@ export default function App({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         
           <div className='z-10'>
-            <Navbar />
+            {/* <Navbar /> */}
             <Toaster />
           </div>
           <Component {...pageProps}  />
