@@ -1,4 +1,5 @@
 import Context from '@/Context/context'
+import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { useRouter } from 'next/router'

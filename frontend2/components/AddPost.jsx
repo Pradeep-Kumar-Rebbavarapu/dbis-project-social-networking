@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import axios from 'axios'
+import axios from 'axios'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import Context from '@/Context/context'
 import Modal from 'react-modal';
