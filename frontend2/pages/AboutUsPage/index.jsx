@@ -7,10 +7,10 @@ import pradeep from '../../public/images/pradeep.jpg'
 export default function index() {
   return (
     <div>
-      <section className="text-gray-600 body-font">
+      <section className="text-gray-100 body-font ">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-col text-center w-full mb-20">
-            <h1 className="text-2xl font-medium title-font mb-4 text-gray-900 tracking-widest">OUR TEAM</h1>
+            <h1 className="text-2xl font-medium title-font mb-4 text-gray-200 tracking-widest">OUR TEAM</h1>
             <p className="lg:w-2/3 mx-auto leading-relaxed text-base">At Team Nexus Net, we unite our strengths and vision to propel innovation, cultivate success, and empower growth. With unwavering dedication and collaborative spirit, were shaping a brighter tomorrow for all.</p>
           </div>
           <div className="flex flex-wrap -m-4">
@@ -18,7 +18,7 @@ export default function index() {
               <div className="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
                 <Image src={pradeep} placeholder='blur' alt="team" className="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" />
                   <div className="flex-grow sm:pl-8">
-                    <h2 className="title-font font-medium text-lg text-gray-900">Pradeep Kumar.R</h2>
+                    <h2 className="title-font font-medium text-lg text-gray-200">Pradeep Kumar.R</h2>
                     <h3 className="text-gray-500 mb-3">IIT INDORE</h3>
                     <p className="mb-4">
 I am presently in the second year of my academic journey, where I am diligently working towards the attainment of a Bachelor of Technology (B.Tech) degree.</p>
@@ -46,7 +46,7 @@ I am presently in the second year of my academic journey, where I am diligently 
               <div className="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
                 <Image placeholder='blur' src={havish} alt="team" className="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" />
                   <div className="flex-grow sm:pl-8">
-                    <h2 className="title-font font-medium text-lg text-gray-900">Havish Bhukya</h2>
+                    <h2 className="title-font font-medium text-lg text-gray-200">Havish Bhukya</h2>
                     <h3 className="text-gray-500 mb-3">IIT INDORE</h3>
                     <p className="mb-4">
 I am presently in the second year of my academic journey, where I am diligently working towards the attainment of a Bachelor of Technology (B.Tech) degree.</p>
@@ -74,7 +74,7 @@ I am presently in the second year of my academic journey, where I am diligently 
               <div className="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
                 <Image alt="team" className="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" placeholder='blur' src={pavan}/>
                   <div className="flex-grow sm:pl-8">
-                    <h2 className="title-font font-medium text-lg text-gray-900">A.Pavan Kumar</h2>
+                    <h2 className="title-font font-medium text-lg text-gray-200">A.Pavan Kumar</h2>
                     <h3 className="text-gray-500 mb-3">IIT INDORE</h3>
                     <p className="mb-4">
 I am presently in the second year of my academic journey, where I am diligently working towards the attainment of a Bachelor of Technology (B.Tech) degree.</p>
@@ -102,7 +102,7 @@ I am presently in the second year of my academic journey, where I am diligently 
               <div className="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left">
                 <Image placeholder='blur' alt="team" className="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4" src={akhilesh}/>
                   <div className="flex-grow sm:pl-8">
-                    <h2 className="title-font font-medium text-lg text-gray-900">Akhilesh Panchangam</h2>
+                    <h2 className="title-font font-medium text-lg text-gray-200">Akhilesh Panchangam</h2>
                     <h3 className="text-gray-500 mb-3">IIT INDORE</h3>
                     <p className="mb-4">
 I am presently in the second year of my academic journey, where I am diligently working towards the attainment of a Bachelor of Technology (B.Tech) degree.</p>

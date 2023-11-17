@@ -31,9 +31,19 @@ class __get__chats__related__to__user__and__receiver__(APIView):
         sender = request.user
         chats = ChatMsg.objects.filter(sender=sender,receiver=receiver) | ChatMsg.objects.filter(sender=receiver,receiver=sender)
         #order it in terms of date
-        chats = chats.order_by('created_at')
+        chats = chats.order_by('created_at_date','created_at_time')
         serializer = ChatMsgSerializer(chats,many=True)
-        return Response(serializer.data)
+        #send the user name instead of the id
+        response = []
+        for i in serializer.data:
+            response.append({
+                "message":i['message'],
+                "sender":UserSerializer(User.objects.get(id=i['sender'])).data,
+                "receiver":UserSerializer(User.objects.get(id=i['receiver'])).data,
+                "created_at_date":i['created_at_date'],
+                "created_at_time":i['created_at_time']
+            })
+        return JsonResponse(response,safe=False)
     
 class __search__user__based__on__username__(ListAPIView):
     #search those users only who the logged in user is not following or is not followed by
@@ -59,11 +69,13 @@ class __get__users__who__logged__in__user__has__chatted__(ListAPIView):
     serializer_class = ChatMsgSerializer
     def get_queryset(self):
         user = self.request.user
-        people = Follower.objects.filter(follower=user) | Follower.objects.filter(followee=user)
+        #get not only chats but also groups the user is a part of , grp_members is a many to many field
+        people = Follower.objects.filter(follower=user) | Follower.objects.filter(followee=user) 
         return people
     def list(self,request):
         queryset = self.get_queryset()
         serializer = FollowerSerializer(queryset,many=True)
+
         #send the user id along with the name of people who is connected with the logged in user
         response = []
         #followee might be the logged in user and follower might be another user or vice versa
@@ -77,9 +89,16 @@ class __get__users__who__logged__in__user__has__chatted__(ListAPIView):
                 response.append({
                     "user":UserSerializer(User.objects.get(id=i['follower'])).data,
                 }) 
+        groups = Group.objects.filter(grp_members=request.user)
+        serializer2 = GroupSerializer(groups,many=True)
+
         #make the array unique
         response = list({v['user']['id']:v for v in response}.values())
-        return JsonResponse(response,safe=False)
+        data = {
+            "users":response,
+            "groups":serializer2.data
+        }
+        return JsonResponse(data,safe=False)
     
 class __get__all__posts__(ListAPIView):
     authentication_classes = [JWTAuthentication]
@@ -197,3 +216,39 @@ class __get__posts__of__all__the__users__who__the__logged__in__user__follows__or
         
 
     
+
+
+class __get__group__chats__related__to__the__group__(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    def post(self,request):
+        group = request.data['group_id']
+        group = Group.objects.get(grp_id=group)
+        chats = GroupMessage.objects.filter(group=group)
+        serializer = GroupMessageSerializer(chats,many=True)
+        #also send the sender name
+        response = []
+        for i in serializer.data:
+            response.append({
+                "message":i['message'],
+                "sender":UserSerializer(User.objects.get(id=i['sender'])).data,
+                "created_at_date":i['created_at_date'],
+                "created_at_time":i['created_at_time']
+            })
+        return JsonResponse(response,safe=False)
+    
+
+class __get__group__details__(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    def get(self,request,pk):
+        group = Group.objects.get(grp_id=pk)
+        grp_members = group.grp_members.all()
+        grp_members = UserSerializer(grp_members,many=True)
+        #also send the group details
+        grp_details = GroupSerializer(group)
+        data = {
+            "grp_details":grp_details.data,
+            "grp_members":grp_members.data
+        }
+        return JsonResponse(data,safe=False)

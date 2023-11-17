@@ -26,7 +26,7 @@ export default function Query() {
   
   let socket = useRef(null)
   useEffect(()=>{
-    socket.current = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${auth.user.pk}`)
+    socket.current = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${auth?.user?.pk}`)
     socket.current.onopen = (e)=>{
       console.log(e)
     }

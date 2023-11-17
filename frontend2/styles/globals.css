@@ -230,7 +230,9 @@ Reset CSS
   z-index: 100000 !important;
 }
 
-
+.smenu {
+  left: 0%;
+}
 
 
 

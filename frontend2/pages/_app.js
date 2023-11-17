@@ -17,11 +17,11 @@ const queryClient = new QueryClient()
 export default function App({ Component, pageProps }) {
   
   return (
-    <div>
+    <div className=''>
       <ContextProvider >
       <QueryClientProvider client={queryClient}>
         
-          <div className='z-10'>
+          <div className='z-[10] invert'>
             <Navbar />
             <Toaster />
           </div>

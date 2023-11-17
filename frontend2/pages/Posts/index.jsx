@@ -1,7 +1,11 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect,useRef } from 'react'
 import { useQuery, dehydrate, QueryClient, useQueryClient, useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import Context from '@/Context/context';
+import { FcLike } from "react-icons/fc";
+// import toast
+import { toast } from 'react-hot-toast';
+import { CiHeart } from "react-icons/ci";
 export default function Posts() {
   
   
@@ -9,11 +13,28 @@ export default function Posts() {
   const UsersPosts = useQuery({ queryKey: ["usersPosts"], queryFn: ()=>{
     return fetchUsersPosts(auth.access)
   } })
-  useEffect(()=>{
-    if(!auth){
-      router.push('/JoinUsPage')
-    }
-  },[])
+  let socket = useRef(null)
+	useEffect(()=>{
+		
+		socket.current = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${auth?.user?.pk}`)
+		socket.current.onopen = (e)=>{
+		  console.log(e)
+		}
+		socket.current.onmessage = (e)=>{
+		  const data = JSON.parse(e.data)
+      if(data.type === "post_liked"){
+        UsersPosts.refetch()
+            toast.success("Post Liked",{position:"top-right"})
+      }
+      else if(data.type === "post_unliked"){
+        UsersPosts.refetch()
+          toast.success("Post Unliked",{position:"top-right"})
+      }
+		}
+		return ()=>{
+		  socket.current.close()
+		}
+	  },[auth?.user?.pk])
   return (
     <div className='flex flex-col justify-center items-center w-full px-20 '>
       {UsersPosts?.data?.map((ele, index) => {
@@ -35,16 +56,30 @@ export default function Posts() {
                           
                         </a>
                         <span className="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
-                          <svg className="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                            <circle cx="12" cy="12" r="3"></circle>
-                          </svg>{ele.post.post_liked_by.length}
+                          {/* if the auth.user.pk is present in post_liked_by the show FCLike else show CIHeart */}
+                          {ele.post.post_liked_by.includes(auth.user.pk) ? <FcLike className='w-[20px] h-[20px] mx-2' onClick={()=>{
+                            socket.current.send(JSON.stringify({
+                              'type':'unlike',
+                              "data":{
+                                'post_id':ele.post.id,
+                              "user_id":auth.user.pk
+                              }
+                              
+                            }))
+                          }} /> : <CiHeart onClick={()=>{
+                            socket.current.send(JSON.stringify({
+                              'type':'like',
+                              "data":{
+                                'post_id':ele.post.id,
+                              "user_id":auth.user.pk
+                              }
+                              
+                            }))
+                          }} className='w-[20px] h-[20px] mx-2' />}
+                        
+                        {ele.post.post_liked_by.length}
                         </span>
-                        <span className="text-gray-400 inline-flex items-center leading-none text-sm">
-                          <svg className="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-                          </svg>{ele.post.post_comments.length}
-                        </span>
+                        
                       </div>
                     </div>
                   </div>

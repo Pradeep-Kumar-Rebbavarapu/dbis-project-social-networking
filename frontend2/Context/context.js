@@ -12,17 +12,22 @@ export const ContextProvider = ({ children }) => {
         "id": 1,
         "username": "pradeepkumar",
     })
+    const UsersChattedWith = useRef([])
     let socket = useRef(null)
     const router = useRouter()
-    const [auth,setauth] = useState(()=>Cookies.get('auth')?JSON.parse(Cookies.get('auth')):null)
+    const [auth, setauth] = useState(() => Cookies.get('auth') ? JSON.parse(Cookies.get('auth')) : null)
     const Logout = () => {
-		setauth(null)
-		Cookies.remove('auth')
-		localStorage.clear()
+        setauth(null)
+        Cookies.remove('auth')
+        localStorage.clear()
         router.push('/JoinUsPage')
-	}
-    
-    
+    }
+    useEffect(() => {
+        if (!auth && router.pathname !== '/JoinUsPage' && router.pathname !== '/' && router.pathname !== '/AboutUsPage') {
+            router.push('/JoinUsPage')
+        }
+    }, [router,auth])
+
     const ContextData = {
         EachUsersMessages,
         setEachUsersMessages,
@@ -31,8 +36,9 @@ export const ContextProvider = ({ children }) => {
         setuser,
         auth,
         setauth,
-        Logout
-        
+        Logout,
+        UsersChattedWith
+
     }
     return (
         <Context.Provider value={ContextData}>

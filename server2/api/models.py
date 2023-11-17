@@ -1,7 +1,7 @@
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
-
+from .helpers import *
 
 def upload_post_image(instance, filename):
     return f'posts/{instance.user.id}/{filename}'
@@ -30,7 +30,8 @@ class ChatMsg(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
     message = models.TextField()
-    created_at = models.DateTimeField(default=None, null=True)
+    created_at_date = models.CharField(max_length=225,default=getdate(), null=True)
+    created_at_time = models.CharField(max_length=225,default=gettime(), null=True)
 
 class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -56,24 +57,23 @@ class Follower(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
     followee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followees')
 
-class GroupMember(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    group = models.ForeignKey('Group', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
 class GroupMessage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     message = models.TextField()
     group = models.ForeignKey('Group', on_delete=models.CASCADE)
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at_date = models.CharField(max_length=225,default=getdate(), null=True)
+    created_at_time = models.CharField(max_length=225,default=gettime(), null=True)
 
 class Group(models.Model):
     grp_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     grp_name = models.CharField(max_length=50)
-    grp_desc = models.TextField(default=None, null=True)
-    grp_pic = models.CharField(max_length=50, default=None, null=True)
-    created_at = models.DateTimeField(default=None, null=True)
-    grp_admin = models.ForeignKey(User, on_delete=models.CASCADE,related_name='admin')
+    created_at_date = models.CharField(max_length=225,default=getdate(), null=True)
+    created_at_time = models.CharField(max_length=225,default=gettime(), null=True)
+    grp_admin = models.ForeignKey(User, on_delete=models.CASCADE,related_name='admin',null=True,default=None,blank=True)
+    grp_members = models.ManyToManyField(User,related_name='members',null=True,default=None,blank=True)
 
 class Image(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

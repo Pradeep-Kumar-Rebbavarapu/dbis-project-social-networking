@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, Bookmark, ChatMsg, CommentLike, Comment, FollowRequest, Follower, GroupMember, GroupMessage, Group, Notification
+from .models import Post, Bookmark, ChatMsg, CommentLike, Comment, FollowRequest, Follower, GroupMessage, Group, Notification
 from django.contrib.auth.models import User
  # import UserAdmin
 from django.contrib.auth.admin import UserAdmin
@@ -24,7 +24,6 @@ admin.site.register(FollowRequest)
 
 admin.site.register(Follower)
 
-admin.site.register(GroupMember)
 
 admin.site.register(GroupMessage)
 

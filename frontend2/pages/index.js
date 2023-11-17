@@ -54,7 +54,7 @@ tooltips.forEach((tooltip) =>
       </Head>
       <main className='!z-[-1] flex flex-col items-center justify-center'>
         <h1 className="tooltip text-black text-center">Nexus Net.</h1>
-        <p className='text-center mx-10 font-bold text-xl'>Bridging the Digital Divide, One Connection at a Time</p>
+        <p className='text-center mx-10 font-bold text-xl invert'>Bridging the Digital Divide, One Connection at a Time</p>
       </main>
       <style jsx global>{`
         @font-face {
