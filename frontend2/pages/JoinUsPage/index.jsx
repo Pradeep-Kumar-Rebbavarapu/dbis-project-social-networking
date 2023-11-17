@@ -1,6 +1,5 @@
 import React, { useContext, useState, useRef } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import axios from 'axios';
 import * as Yup from "yup";
 import Context from '@/Context/context';
 import Cookies from "js-cookie";

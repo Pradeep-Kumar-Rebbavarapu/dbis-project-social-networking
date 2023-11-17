@@ -1,6 +1,5 @@
 "use client";
 import EachChatPerson from "@/components/EachChatPerson";
-import axios from "axios";
 import React, { useRef, useEffect, useState, useLayoutEffect } from "react";
 import axios from "axios";
 import {
